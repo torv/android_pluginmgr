@@ -1,10 +1,14 @@
 package com.torv.adam.pluginmgr;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
@@ -91,6 +95,14 @@ public class MainActivity extends Activity {
 				}).start();
 			}
 		});
+
+		requestPermission();
+	}
+
+	private void requestPermission() {
+		if(ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+			ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+		}
 	}
 
 	private void plugItemClick(int position) {
